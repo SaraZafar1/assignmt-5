@@ -1,0 +1,278 @@
+<html> 
+<head> 
+<title> 
+The Magic Word 
+</title>
+
+<style> 
+ body {
+        align-content: center;
+        background-color: #680000;
+        color: white;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: grid;
+
+        text-align: center;
+         font-size: 50px;
+
+         grid-template-columns: 1fr 1fr 1fr;
+         grid-template-rows: 100px 100px 1fr 1fr 1fr 1fr 100px;
+         gap: 10px;
+
+         height: 99vh;
+         width: 99vw;}
+
+button { 
+     font-size: 30px; 
+     .btn-primary {
+  background-color: #ffffff;
+  border: solid rgb(255, 0, 119); 
+  }
+
+}
+.type {grid-row-start: 1; 
+        grid-row-end: 3; 
+        grid-column-start: 1; 
+        grid-column-end: 2; }
+
+.addBeginning {grid-row-start: 1; 
+               grid-row-end: 2; 
+               grid-column-start: 2; 
+               grid-column-end: 3; 
+               font-size: 100px;
+}
+
+.addMiddle {grid-row-start: 1;
+            grid-row-end: 2; 
+            grid-column-start: 3; 
+            grid-column-end: 4; 
+            font-size: 100px;}
+
+.addEnd {grid-row-start: 1; 
+         grid-row-end: 2; 
+         grid-column-start: 4; 
+         grid-column-end: 5; 
+         font-size: 100px;}
+
+.deleteBeg {grid-row-start: 2; 
+            grid-row-end: 3; 
+            grid-column-start: 2; 
+            grid-column-end: 3; 
+            font-size: 100px;}
+
+.deleteMid {grid-row-start: 2;
+            grid-row-end: 3; 
+            grid-column-start: 3; 
+            grid-column-end: 4;
+            font-size: 100px; }
+
+.deleteEnd {grid-row-start: 2;
+            grid-row-end: 3; 
+            grid-column-start: 4; 
+            grid-column-end: 5;
+            font-size: 100px; }
+
+.quit {grid-row-start: 4; 
+       grid-row-end:  5; 
+       grid-column-start: 1; 
+       grid-column-end: 2;
+       font-size: 100px; }
+
+.display {grid-row-start: 3; 
+          grid-row-end: 5; 
+          grid-column-start: 2; 
+          grid-column-end: 5;
+          border: solid rgb(255, 0, 119); }
+</style> 
+
+<script> 
+
+var inputValue = ""; 
+var word = ""; 
+var characters = 0; 
+var middle = 0; 
+
+
+function letterType () { 
+    inputValue = document.getElementById("letter").value; 
+    if(inputValue!="") {document.getElementById("beg").disabled = false;  
+                        document.getElementById("end").disabled = false;
+                        document.getElementById("mid").disabled = false;} 
+    if(characters>0)   {document.getElementById("delBeg").disabled = false; 
+                        document.getElementById("delMid").disabled = false;
+                        document.getElementById("delEnd").disabled = false;}
+
+}
+
+function aBeginning() {
+    inputValue = document.getElementById("letter").value; 
+    word = inputValue + word; 
+    document.getElementById("display").innerHTML = word; 
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    characters = word.length;
+    if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true; 
+                                         document.getElementById("end").disabled = true; 
+                                         document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false;  
+                                         document.getElementById("end").disabled = false;
+                                         document.getElementById("mid").disabled = false;} 
+ }
+
+function aMiddle() {
+    inputValue = document.getElementById("letter").value; 
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    characters = word.length;
+    middle = Math.round(characters/2); 
+    word = word.substring(0,middle) + inputValue + word.substring(middle, word.length); 
+
+    if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true; 
+                       document.getElementById("end").disabled = true;
+                       document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false; 
+                       document.getElementById("end").disabled = false;
+                       document.getElementById("mid").disabled = false;}
+
+
+    document.getElementById("display").innerHTML = word; }
+
+function aEnd() { 
+    inputValue = document.getElementById("letter").value; 
+    word = word + inputValue; 
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    document.getElementById("display").innerHTML = word; 
+    characters = word.length;
+
+    if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true; 
+                       document.getElementById("end").disabled = true;
+                       document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false; 
+                       document.getElementById("end").disabled = false;
+                       document.getElementById("mid").disabled = false;} }
+
+function dBeginning() {
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    word = word.substring(1);  
+    characters = word.length; 
+    if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true;  
+                       document.getElementById("end").disabled = true;
+                       document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false; 
+                       document.getElementById("end").disabled = false;
+                       document.getElementById("mid").disabled = false;}
+    
+    document.getElementById("display").innerHTML = word;}
+
+function dMid() { 
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    characters = word.length;
+    middle = Math.round(characters/2); 
+    word = word.substring(0,middle - 1) + word.substring(middle, word.length); 
+
+    if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true; 
+                       document.getElementById("end").disabled = true;
+                       document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false; 
+                       document.getElementById("end").disabled = false;
+                       document.getElementById("mid").disabled = false;  }
+
+    document.getElementById("display").innerHTML = word;
+}
+function dEnd() {
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+    inputValue = document.getElementById("letter").value; 
+    word = word.substring(0,word.length-1); 
+    characters = word.length;
+     if(characters==0) {document.getElementById("delEnd").disabled = true; document.getElementById("delMid").disabled = true; document.getElementById("delBeg").disabled = true;}
+    if(characters>0) {document.getElementById("delEnd").disabled = false; document.getElementById("delMid").disabled = false; document.getElementById("delBeg").disabled = false;}
+    if(characters>=18) {document.getElementById("beg").disabled = true; 
+                       document.getElementById("end").disabled = true;
+                       document.getElementById("mid").disabled = true;}
+
+    if(characters<18) {document.getElementById("beg").disabled = false; 
+                       document.getElementById("end").disabled = false;
+                       document.getElementById("mid").disabled = false; }
+    document.getElementById("display").innerHTML = word; }
+
+function reset1() {
+    document.getElementById("letter").value = ""; 
+    document.getElementById("letter").focus(); 
+   word = ""; 
+   document.getElementById("display").innerHTML = word;
+   characters = 0; 
+   document.getElementById("beg").disabled = true;
+   document.getElementById("mid").disabled = true;
+   document.getElementById("end").disabled = true;
+   document.getElementById("delBeg").disabled = true;
+   document.getElementById("delMid").disabled = true;
+   document.getElementById("delEnd").disabled = true;
+   
+}
+</script>
+</head>
+<body> <body style="background-color: pink;">
+
+    <div class="type"> 
+<h10> Insert new letter here <br> <input id="letter" maxlength="1" size="10" style="height: 30px" onkeyup="letterType()"> </h10>
+    </div>
+
+    <div class="addBeginning"> 
+        <button id="beg" onclick="aBeginning()" style="height: 70px" style="width: 400px" disabled="true" style="font-size: 100px;" > Add to Beginning </button>
+    </div>
+
+    <div class="addMiddle">
+        <button id="mid" onclick="aMiddle()" style="height: 70px" style="width: 400px" disabled="true" style="font-size: 100px;" > Add to Middle </button>
+    </div>
+
+    <div class="addEnd">
+        <button id="end" onclick="aEnd()" style="height: 70px" style="width: 400px" disabled="true" style="font-size: 100px;" > Add to End </button>
+    </div>
+
+    <div class="deleteBeg"> 
+        <button id="delBeg" onclick="dBeginning()" style="height: 70px" style="width: 400px" disabled ="true" style="font-size: 100px;" > Delete from Beginning </button>
+    </div>
+
+    <div class="deleteMid">
+        <button id="delMid" onclick="dMid()" style="height: 70px" style="width: 400px" disabled ="true" style="font-size: 100px;" > Delete from Middle </button>
+
+    </div>
+
+    <div class="deleteEnd"> 
+        <button id="delEnd" onclick="dEnd()" style="height: 70px" style="width: 400px" disabled="true" style="font-size: 100px;" > Delete from End </button>
+    </div>
+
+    <div class="quit"> 
+       <button id="reset" onclick="reset1()" style="height: 40px" style="width: 700px" style="font-size: 100px;" > Reset </button>
+    </div>
+
+    <div class="display" id="display">
+        <p>The Magic Word </p> <br> <br> 
+    </div>
+
+
+
+
+
+</body>
+
+</html>
